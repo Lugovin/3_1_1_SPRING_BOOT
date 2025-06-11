@@ -7,8 +7,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
 public class MainController {
@@ -20,7 +20,7 @@ public class MainController {
         this.userService = userService;
     }
 
-    private String errorMessage = "Запоните ВСЕ поля с данными человека.";
+    private final String errorMessage = "Запоните ВСЕ поля с данными человека.";
 
 
     @GetMapping({"/usersList", "/"})
@@ -49,15 +49,16 @@ public class MainController {
         return "addUser";
     }
 
-    @GetMapping("/deleteUser/{id}")
-    public String showDeleteUserPage(@PathVariable("id") Long id) {
+
+    @GetMapping("/deleteUser")
+    public String showDeleteUserPage(@RequestParam Long id) {
         User user = userService.getUserById(id);
         userService.deleteUser(user);
         return "redirect:/usersList";
     }
 
-    @GetMapping("/edit/{id}")
-    public String editUserForm(Model model, @PathVariable("id") Long id) {
+    @GetMapping("/edit")
+    public String editUserForm(Model model, @RequestParam Long id) {
         User oldUser = userService.getUserById(id);
         model.addAttribute("user", oldUser);
         return "editUser";

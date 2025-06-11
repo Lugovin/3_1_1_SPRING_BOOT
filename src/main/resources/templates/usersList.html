@@ -22,8 +22,12 @@
             <td th:utext="${user.getLastName}">...</td>
             <td th:utext="${user.getEmail}">...</td>
             <td>
-                <a th:href="@{'/edit/' + ${user.getId}}">edit</a>
-                <a th:href="@{'/deleteUser/' + ${user.getId}}">delete</a>
+<!--                <a th:href="@{'/edit/' + ${user.getId}}">edit</a>   Так пишем, если работаем через @PathVariable("id") Long id-->
+<!--                <a th:href="@{'/deleteUser/' + ${user.getId}}">delete</a>-->
+
+<!--                Так пишем, если используем @RequestParam-->
+                <a th:href="@{/edit(id=${user.getId})}">edit</a>
+                <a th:href="@{/deleteUser(id=${user.getId})}">delete</a>
             </td>
         </tr>
     </table>
